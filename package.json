@@ -2,7 +2,6 @@
   "name": "virelle-bathroom-showcase",
   "version": "1.0.0",
   "description": "Site vitrine premium pour douches et robinets",
-  "homepage": "https://VOTRE_USERNAME.github.io/virelle",
   "private": false,
   "dependencies": {
     "framer-motion": "^10.16.16",
