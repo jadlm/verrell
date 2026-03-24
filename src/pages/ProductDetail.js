@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { ArrowLeft, Check, Star, ShoppingCart, Heart } from 'lucide-react';
-import { getProductById, getProducts, formatPriceMAD } from '../utils/productService';
+import { getProducts, formatPriceMAD } from '../utils/productService';
 import { addToCart } from '../utils/cartService';
 import { useCart } from '../context/CartContext';
 
@@ -16,7 +16,7 @@ const ProductDetail = () => {
   const { updateCart } = useCart();
 
   // Produits par défaut
-  const defaultProducts = {
+  const defaultProducts = useMemo(() => ({
     1: {
       id: 1,
       name: 'Douche Moderne Premium',
@@ -317,7 +317,7 @@ const ProductDetail = () => {
       rating: 4.6,
       reviews: 89,
     },
-  };
+  }), []);
 
   // Charger les produits depuis localStorage ou utiliser les produits par défaut
   useEffect(() => {
@@ -336,7 +336,7 @@ const ProductDetail = () => {
       setProductsDatabase(defaultProducts);
       setProduct(defaultProducts[parseInt(id)] || null);
     }
-  }, [id]);
+  }, [id, defaultProducts]);
 
   // Utiliser productsDatabase ou defaultProducts selon ce qui est disponible
   const currentProductsDatabase = Object.keys(productsDatabase).length > 0 ? productsDatabase : defaultProducts;

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { 
@@ -43,6 +43,18 @@ const AdminDashboard = () => {
     reviews: 0,
   });
 
+  const loadProducts = useCallback(() => {
+    const savedProducts = localStorage.getItem('adminProducts');
+    if (savedProducts) {
+      setProducts(JSON.parse(savedProducts));
+    } else {
+      // Charger les produits par défaut depuis ProductDetail
+      const defaultProducts = getDefaultProducts();
+      setProducts(defaultProducts);
+      saveProducts(defaultProducts);
+    }
+  }, []);
+
   useEffect(() => {
     // Vérifier la session admin
     const adminSession = localStorage.getItem('adminSession');
@@ -53,19 +65,7 @@ const AdminDashboard = () => {
 
     // Charger les produits depuis localStorage ou utiliser les produits par défaut
     loadProducts();
-  }, [navigate]);
-
-  const loadProducts = () => {
-    const savedProducts = localStorage.getItem('adminProducts');
-    if (savedProducts) {
-      setProducts(JSON.parse(savedProducts));
-    } else {
-      // Charger les produits par défaut depuis ProductDetail
-      const defaultProducts = getDefaultProducts();
-      setProducts(defaultProducts);
-      saveProducts(defaultProducts);
-    }
-  };
+  }, [navigate, loadProducts]);
 
   const getDefaultProducts = () => {
     // Produits par défaut (même structure que ProductDetail)
@@ -573,7 +573,7 @@ const AdminDashboard = () => {
 // Composant formulaire pour éditer/ajouter un produit
 const ProductForm = ({ product, setProduct, onSave, onCancel, isEditing }) => {
   const handleChange = (e) => {
-    const { name, value, type, checked } = e.target;
+    const { name, value, checked } = e.target;
     if (name.startsWith('specifications.')) {
       const specKey = name.split('.')[1];
       setProduct({

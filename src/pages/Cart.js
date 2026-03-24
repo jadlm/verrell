@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
-import { ShoppingCart, Trash2, Plus, Minus, Mail, MessageCircle, ArrowLeft, Copy, Check } from 'lucide-react';
+import { ShoppingCart, Trash2, Plus, Minus, Mail, MessageCircle, ArrowLeft } from 'lucide-react';
 import { removeFromCart, updateCartItemQuantity, getCartTotal } from '../utils/cartService';
 import { formatPriceMAD } from '../utils/productService';
 import { useCart } from '../context/CartContext';
@@ -16,7 +16,6 @@ const Cart = () => {
     message: '',
   });
   const [quoteMethod, setQuoteMethod] = useState('email'); // 'email' or 'whatsapp'
-  const [emailCopied, setEmailCopied] = useState(false);
   const [showEmailLink, setShowEmailLink] = useState(false);
 
   useEffect(() => {
