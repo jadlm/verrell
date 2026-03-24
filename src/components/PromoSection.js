@@ -4,6 +4,7 @@ import { useInView } from 'framer-motion';
 import { useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { Tag, ArrowRight } from 'lucide-react';
+import { formatPriceMAD } from '../utils/productService';
 
 // IDs des produits promo pour les liens
 const promoProductIds = {
@@ -20,8 +21,8 @@ const PromoSection = () => {
     {
       id: 1,
       name: 'Douche Premium -30%',
-      originalPrice: '1 299€',
-      promoPrice: '909€',
+      originalPrice: '14290',
+      promoPrice: '10000',
       discount: '-30%',
       description: 'Design épuré et fonctionnel pour une expérience de douche premium',
       image: '/images/exemple.webp',
@@ -29,8 +30,8 @@ const PromoSection = () => {
     {
       id: 2,
       name: 'Robinet Design -25%',
-      originalPrice: '349€',
-      promoPrice: '262€',
+      originalPrice: '3840',
+      promoPrice: '2880',
       discount: '-25%',
       description: 'Robinetterie haut de gamme alliant esthétique et performance',
       image: '/images/exemple.webp',
@@ -38,8 +39,8 @@ const PromoSection = () => {
     {
       id: 3,
       name: 'Pack Salle de bain -20%',
-      originalPrice: '899€',
-      promoPrice: '719€',
+      originalPrice: '9890',
+      promoPrice: '7910',
       discount: '-20%',
       description: 'Pack complet pour équiper votre salle de bain avec style',
       image: '/images/exemple.webp',
@@ -140,10 +141,10 @@ const PromoSection = () => {
                 {/* Prices */}
                 <div className="flex flex-col sm:flex-row sm:items-center sm:space-x-4 space-y-1 sm:space-y-0 mb-3 sm:mb-4">
                   <span className="text-xl sm:text-2xl font-bold text-luxe-gold">
-                    {product.promoPrice}
+                    {formatPriceMAD(product.promoPrice)}
                   </span>
                   <span className="text-base sm:text-lg text-gray-400 line-through">
-                    {product.originalPrice}
+                    {formatPriceMAD(product.originalPrice)}
                   </span>
                 </div>
 

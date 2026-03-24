@@ -1,12 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Link, useLocation } from 'react-router-dom';
-import { Menu, X } from 'lucide-react';
+import { Menu, X, ShoppingCart } from 'lucide-react';
+import { useCart } from '../context/CartContext';
 
 const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const location = useLocation();
+  const { cartCount } = useCart();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -74,6 +76,31 @@ const Navbar = () => {
                 </motion.div>
               </Link>
             ))}
+            <Link to="/panier">
+              <motion.div
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.9 }}
+                className="relative cursor-pointer"
+              >
+                <ShoppingCart 
+                  size={24} 
+                  className={`transition-colors ${
+                    location.pathname === '/panier'
+                      ? 'text-luxe-gold'
+                      : 'text-gray-700 hover:text-luxe-gold'
+                  }`}
+                />
+                {cartCount > 0 && (
+                  <motion.span
+                    initial={{ scale: 0 }}
+                    animate={{ scale: 1 }}
+                    className="absolute -top-2 -right-2 bg-red-500 text-white text-xs font-bold rounded-full w-5 h-5 flex items-center justify-center"
+                  >
+                    {cartCount > 9 ? '9+' : cartCount}
+                  </motion.span>
+                )}
+              </motion.div>
+            </Link>
           </div>
 
           {/* Mobile Menu Button */}
@@ -111,6 +138,22 @@ const Navbar = () => {
                   {item.name}
                 </Link>
               ))}
+              <Link
+                to="/panier"
+                onClick={() => setIsMobileMenuOpen(false)}
+                className={`flex items-center justify-between font-medium transition-colors py-2 ${
+                  location.pathname === '/panier'
+                    ? 'text-luxe-gold'
+                    : 'text-gray-700 hover:text-luxe-gold'
+                }`}
+              >
+                <span>Panier</span>
+                {cartCount > 0 && (
+                  <span className="bg-red-500 text-white text-xs font-bold rounded-full px-2 py-1">
+                    {cartCount > 9 ? '9+' : cartCount}
+                  </span>
+                )}
+              </Link>
             </div>
           </motion.div>
         )}

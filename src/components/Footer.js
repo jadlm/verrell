@@ -1,7 +1,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
-import { Facebook, Instagram, Twitter, Linkedin } from 'lucide-react';
+import { Facebook, Instagram, Twitter, Linkedin, MapPin, Phone } from 'lucide-react';
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
@@ -20,15 +20,86 @@ const Footer = () => {
   };
 
   const socialLinks = [
-    { icon: Facebook, href: 'https://facebook.com', name: 'Facebook' },
+    { icon: Facebook, href: 'https://www.facebook.com/verrelldesign', name: 'Facebook' },
     { icon: Instagram, href: 'https://instagram.com', name: 'Instagram' },
     { icon: Twitter, href: 'https://twitter.com', name: 'Twitter' },
     { icon: Linkedin, href: 'https://linkedin.com', name: 'LinkedIn' },
   ];
 
+  // Adresse exacte de Verrel Design
+  const address = "45, Avenue Omar El Khayam (ex Mermoz), Ferme Bretonne, RDC, Casablanca";
+  const phone = "06 60 57 05 37";
+  // URL Google Maps Embed (fonctionne sans clé API pour les adresses)
+  const mapUrl = `https://www.google.com/maps?q=${encodeURIComponent(address)}&output=embed`;
+
   return (
     <footer className="bg-white border-t-2 border-luxe-gold/30">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        {/* Section Carte et Contact */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+          className="mb-12"
+        >
+          <h3 className="font-display font-bold text-2xl text-gray-800 mb-6 text-center">
+            Nous trouver
+          </h3>
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+            {/* Carte Google Maps */}
+            <div className="w-full h-64 lg:h-80 rounded-lg overflow-hidden shadow-lg border-2 border-luxe-gold/20">
+              <iframe
+                src={mapUrl}
+                width="100%"
+                height="100%"
+                style={{ border: 0 }}
+                allowFullScreen
+                loading="lazy"
+                referrerPolicy="no-referrer-when-downgrade"
+                title="Localisation Verrel Design"
+                className="w-full h-full"
+              ></iframe>
+            </div>
+            
+            {/* Informations de contact */}
+            <div className="flex flex-col justify-center space-y-4">
+              <div className="flex items-start space-x-3">
+                <MapPin className="text-luxe-gold mt-1 flex-shrink-0" size={20} />
+                <div>
+                  <h4 className="font-display font-semibold text-gray-800 mb-1">Adresse</h4>
+                  <p className="text-gray-600 text-sm leading-relaxed">
+                    {address}
+                  </p>
+                </div>
+              </div>
+              <div className="flex items-start space-x-3">
+                <Phone className="text-luxe-gold mt-1 flex-shrink-0" size={20} />
+                <div>
+                  <h4 className="font-display font-semibold text-gray-800 mb-1">Téléphone</h4>
+                  <a 
+                    href={`tel:${phone.replace(/\s/g, '')}`}
+                    className="text-gray-600 hover:text-luxe-gold transition-colors text-sm"
+                  >
+                    {phone}
+                  </a>
+                </div>
+              </div>
+              <div className="pt-4">
+                <a
+                  href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(address)}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center space-x-2 text-luxe-gold hover:text-luxe-gold-dark transition-colors font-semibold text-sm"
+                >
+                  <MapPin size={16} />
+                  <span>Ouvrir dans Google Maps</span>
+                </a>
+              </div>
+            </div>
+          </div>
+        </motion.div>
+
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-8">
           {/* Logo & Description */}
           <div className="lg:col-span-1">

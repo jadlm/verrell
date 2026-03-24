@@ -1,15 +1,22 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { ArrowLeft, Check, Star, ShoppingCart, Heart } from 'lucide-react';
+import { getProductById, getProducts, formatPriceMAD } from '../utils/productService';
+import { addToCart } from '../utils/cartService';
+import { useCart } from '../context/CartContext';
 
 const ProductDetail = () => {
   const { id } = useParams();
   const navigate = useNavigate();
-  const [selectedImage, setSelectedImage] = React.useState(0);
+  const [selectedImage, setSelectedImage] = useState(0);
+  const [product, setProduct] = useState(null);
+  const [productsDatabase, setProductsDatabase] = useState({});
+  const [addedToCart, setAddedToCart] = useState(false);
+  const { updateCart } = useCart();
 
-  // Base de données des produits (en production, cela viendrait d'une API)
-  const productsDatabase = {
+  // Produits par défaut
+  const defaultProducts = {
     1: {
       id: 1,
       name: 'Douche Moderne Premium',
@@ -18,7 +25,7 @@ const ProductDetail = () => {
       fullDescription: 'Cette douche moderne premium allie esthétique et performance. Conçue avec les meilleurs matériaux, elle offre une expérience de douche exceptionnelle. La finition chromée brillante apporte une touche d\'élégance à votre salle de bain.',
       image: '/images/exemple.webp',
       images: ['/images/exemple.webp', '/images/exemple.webp', '/images/exemple.webp'],
-      price: '1 299€',
+      price: '14290',
       originalPrice: null,
       discount: null,
       isPromo: false,
@@ -48,7 +55,7 @@ const ProductDetail = () => {
       fullDescription: 'Profitez d\'une expérience de douche unique avec cette plaque rainshower extra-large. Le design minimaliste s\'intègre parfaitement dans tous les styles de salle de bain. La technologie de pluie naturelle offre un confort incomparable.',
       image: '/images/exemple.webp',
       images: ['/images/exemple.webp', '/images/exemple.webp', '/images/exemple.webp'],
-      price: '899€',
+      price: '9890',
       originalPrice: null,
       discount: null,
       isPromo: false,
@@ -78,7 +85,7 @@ const ProductDetail = () => {
       fullDescription: 'Ce robinet design allie esthétique moderne et performance exceptionnelle. La finition chromée miroir apporte une touche de luxe à votre salle de bain. Conçu pour durer, il résiste à l\'usure et aux taches.',
       image: '/images/exemple.webp',
       images: ['/images/exemple.webp', '/images/exemple.webp', '/images/exemple.webp'],
-      price: '349€',
+      price: '3840',
       originalPrice: null,
       discount: null,
       isPromo: false,
@@ -108,7 +115,7 @@ const ProductDetail = () => {
       fullDescription: 'Robinet mitigeur moderne avec bec haute portée pour plus de confort. Le design contemporain s\'adapte à tous les styles. Facile à utiliser et à entretenir.',
       image: '/images/exemple.webp',
       images: ['/images/exemple.webp', '/images/exemple.webp', '/images/exemple.webp'],
-      price: '279€',
+      price: '3070',
       originalPrice: null,
       discount: null,
       isPromo: false,
@@ -138,7 +145,7 @@ const ProductDetail = () => {
       fullDescription: 'Porte-serviettes chauffant premium pour un confort optimal. Les matériaux de qualité supérieure garantissent une longue durée de vie. La finition élégante s\'intègre parfaitement dans votre salle de bain.',
       image: '/images/exemple.webp',
       images: ['/images/exemple.webp', '/images/exemple.webp', '/images/exemple.webp'],
-      price: '199€',
+      price: '2190',
       originalPrice: null,
       discount: null,
       isPromo: false,
@@ -168,7 +175,7 @@ const ProductDetail = () => {
       fullDescription: 'Miroir LED intégré pour un éclairage optimal de votre salle de bain. Le design épuré et moderne s\'adapte à tous les styles. Les LED offrent un éclairage doux et uniforme.',
       image: '/images/exemple.webp',
       images: ['/images/exemple.webp', '/images/exemple.webp', '/images/exemple.webp'],
-      price: '449€',
+      price: '4940',
       originalPrice: null,
       discount: null,
       isPromo: false,
@@ -198,8 +205,8 @@ const ProductDetail = () => {
       fullDescription: 'Cette douche moderne premium allie esthétique et performance. Conçue avec les meilleurs matériaux, elle offre une expérience de douche exceptionnelle. En promotion limitée !',
       image: '/images/exemple.webp',
       images: ['/images/exemple.webp', '/images/exemple.webp', '/images/exemple.webp'],
-      price: '909€',
-      originalPrice: '1 299€',
+      price: '10000',
+      originalPrice: '14290',
       discount: '-30%',
       isPromo: true,
       features: [
@@ -228,8 +235,8 @@ const ProductDetail = () => {
       fullDescription: 'Ce robinet design allie esthétique moderne et performance exceptionnelle. La finition chromée miroir apporte une touche de luxe à votre salle de bain. Promotion spéciale !',
       image: '/images/exemple.webp',
       images: ['/images/exemple.webp', '/images/exemple.webp', '/images/exemple.webp'],
-      price: '262€',
-      originalPrice: '349€',
+      price: '2880',
+      originalPrice: '3840',
       discount: '-25%',
       isPromo: true,
       features: [
@@ -258,8 +265,8 @@ const ProductDetail = () => {
       fullDescription: 'Pack complet incluant tous les équipements essentiels pour votre salle de bain. Design moderne et cohérent pour un rendu professionnel. Économisez avec ce pack promotionnel !',
       image: '/images/exemple.webp',
       images: ['/images/exemple.webp', '/images/exemple.webp', '/images/exemple.webp'],
-      price: '719€',
-      originalPrice: '899€',
+      price: '7910',
+      originalPrice: '9890',
       discount: '-20%',
       isPromo: true,
       features: [
@@ -288,8 +295,8 @@ const ProductDetail = () => {
       fullDescription: 'Profitez d\'une expérience de douche unique avec cette plaque rainshower extra-large. Le design minimaliste s\'intègre parfaitement dans tous les styles de salle de bain. En promotion !',
       image: '/images/exemple.webp',
       images: ['/images/exemple.webp', '/images/exemple.webp', '/images/exemple.webp'],
-      price: '764€',
-      originalPrice: '899€',
+      price: '8400',
+      originalPrice: '9890',
       discount: '-15%',
       isPromo: true,
       features: [
@@ -312,9 +319,33 @@ const ProductDetail = () => {
     },
   };
 
-  const product = productsDatabase[parseInt(id)];
+  // Charger les produits depuis localStorage ou utiliser les produits par défaut
+  useEffect(() => {
+    const savedProducts = getProducts();
+    if (savedProducts && savedProducts.length > 0) {
+      // Convertir le tableau en objet pour compatibilité
+      const productsObj = {};
+      savedProducts.forEach(p => {
+        productsObj[p.id] = p;
+      });
+      setProductsDatabase(productsObj);
+      const foundProduct = savedProducts.find(p => p.id === parseInt(id));
+      setProduct(foundProduct || null);
+    } else {
+      // Utiliser les produits par défaut
+      setProductsDatabase(defaultProducts);
+      setProduct(defaultProducts[parseInt(id)] || null);
+    }
+  }, [id]);
 
-  if (!product) {
+  // Utiliser productsDatabase ou defaultProducts selon ce qui est disponible
+  const currentProductsDatabase = Object.keys(productsDatabase).length > 0 ? productsDatabase : defaultProducts;
+  const currentProduct = product || currentProductsDatabase[parseInt(id)];
+  const productImages = Array.isArray(currentProduct?.images) && currentProduct.images.length > 0
+    ? currentProduct.images
+    : [currentProduct?.image || '/images/exemple.webp', '/images/exemple.webp', '/images/exemple.webp'];
+
+  if (!currentProduct) {
     return (
       <div className="min-h-screen flex items-center justify-center">
         <div className="text-center">
@@ -341,7 +372,7 @@ const ProductDetail = () => {
             <span>/</span>
             <Link to="/produits" className="hover:text-luxe-gold">Produits</Link>
             <span>/</span>
-            <span className="text-gray-800 truncate max-w-[150px] sm:max-w-none">{product.name}</span>
+            <span className="text-gray-800 truncate max-w-[150px] sm:max-w-none">{currentProduct.name}</span>
           </div>
         </motion.div>
 
@@ -368,13 +399,16 @@ const ProductDetail = () => {
                 key={selectedImage}
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
-                src={product.images[selectedImage]}
-                alt={product.name}
+                src={productImages[selectedImage] || productImages[0]}
+                alt={currentProduct.name}
                 className="w-full h-64 sm:h-80 md:h-96 object-cover rounded-lg shadow-lg"
+                onError={(e) => {
+                  e.currentTarget.src = '/images/exemple.webp';
+                }}
               />
             </div>
             <div className="grid grid-cols-4 gap-2 sm:gap-4">
-              {product.images.map((img, index) => (
+              {productImages.map((img, index) => (
                 <motion.button
                   key={index}
                   onClick={() => setSelectedImage(index)}
@@ -386,8 +420,11 @@ const ProductDetail = () => {
                 >
                   <img
                     src={img}
-                    alt={`${product.name} ${index + 1}`}
+                    alt={`${currentProduct.name} ${index + 1}`}
                     className="w-full h-full object-cover"
+                    onError={(e) => {
+                      e.currentTarget.src = '/images/exemple.webp';
+                    }}
                   />
                 </motion.button>
               ))}
@@ -403,18 +440,18 @@ const ProductDetail = () => {
             {/* Category Badge */}
             <div className="mb-4 flex flex-wrap items-center gap-2">
               <span className="inline-block bg-luxe-gold/10 text-luxe-gold px-3 sm:px-4 py-1.5 sm:py-2 rounded-full text-xs sm:text-sm font-semibold capitalize">
-                {product.category === 'douches' ? 'Douche' : product.category === 'robinets' ? 'Robinet' : 'Équipement'}
+                {currentProduct.category === 'douches' ? 'Douche' : currentProduct.category === 'robinets' ? 'Robinet' : 'Équipement'}
               </span>
-              {product.isPromo && (
+              {currentProduct.isPromo && (
                 <span className="inline-block bg-red-500 text-white px-3 sm:px-4 py-1.5 sm:py-2 rounded-full text-xs sm:text-sm font-bold">
-                  {product.discount} PROMO
+                  {currentProduct.discount} PROMO
                 </span>
               )}
             </div>
 
             {/* Title */}
             <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-display font-bold text-gray-800 mb-4">
-              {product.name}
+              {currentProduct.name}
             </h1>
 
             {/* Rating */}
@@ -425,39 +462,39 @@ const ProductDetail = () => {
                     key={i}
                     size={18}
                     className={`sm:w-5 sm:h-5 ${
-                      i < Math.floor(product.rating) ? 'text-yellow-400 fill-current' : 'text-gray-300'
+                      i < Math.floor(currentProduct.rating) ? 'text-yellow-400 fill-current' : 'text-gray-300'
                     }`}
                   />
                 ))}
               </div>
               <span className="text-sm sm:text-base text-gray-600">
-                {product.rating} ({product.reviews} avis)
+                {currentProduct.rating} ({currentProduct.reviews} avis)
               </span>
             </div>
 
             {/* Price */}
             <div className="mb-6">
-              {product.isPromo ? (
+              {currentProduct.isPromo ? (
                 <div className="flex flex-col sm:flex-row sm:items-center sm:space-x-4 space-y-1 sm:space-y-0">
-                  <span className="text-3xl sm:text-4xl font-bold text-luxe-gold">{product.price}</span>
-                  <span className="text-xl sm:text-2xl text-gray-400 line-through">{product.originalPrice}</span>
+                  <span className="text-3xl sm:text-4xl font-bold text-luxe-gold">{formatPriceMAD(currentProduct.price)}</span>
+                  <span className="text-xl sm:text-2xl text-gray-400 line-through">{formatPriceMAD(currentProduct.originalPrice)}</span>
                 </div>
               ) : (
-                <span className="text-3xl sm:text-4xl font-bold text-luxe-gold">{product.price}</span>
+                <span className="text-3xl sm:text-4xl font-bold text-luxe-gold">{formatPriceMAD(currentProduct.price)}</span>
               )}
             </div>
 
             {/* Description */}
             <div className="mb-6 md:mb-8">
               <h2 className="text-xl sm:text-2xl font-display font-semibold text-gray-800 mb-3 sm:mb-4">Description</h2>
-              <p className="text-sm sm:text-base text-gray-600 leading-relaxed">{product.fullDescription}</p>
+              <p className="text-sm sm:text-base text-gray-600 leading-relaxed">{currentProduct.fullDescription}</p>
             </div>
 
             {/* Features */}
             <div className="mb-6 md:mb-8">
               <h2 className="text-xl sm:text-2xl font-display font-semibold text-gray-800 mb-3 sm:mb-4">Caractéristiques</h2>
               <ul className="grid grid-cols-1 md:grid-cols-2 gap-2 sm:gap-3">
-                {product.features.map((feature, index) => (
+                {currentProduct.features.map((feature, index) => (
                   <motion.li
                     key={index}
                     initial={{ opacity: 0, x: -20 }}
@@ -476,7 +513,7 @@ const ProductDetail = () => {
             <div className="mb-6 md:mb-8 bg-luxe-gray-soft p-4 sm:p-6 rounded-lg">
               <h2 className="text-xl sm:text-2xl font-display font-semibold text-gray-800 mb-3 sm:mb-4">Spécifications techniques</h2>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
-                {Object.entries(product.specifications).map(([key, value]) => (
+                {Object.entries(currentProduct.specifications).map(([key, value]) => (
                   <div key={key} className="flex flex-col sm:block">
                     <span className="text-xs sm:text-sm text-gray-500 capitalize">{key.replace(/([A-Z])/g, ' $1').trim()}:</span>
                     <span className="ml-0 sm:ml-2 text-sm sm:text-base text-gray-800 font-medium block sm:inline">{value}</span>
@@ -490,10 +527,20 @@ const ProductDetail = () => {
               <motion.button
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
-                className="flex-1 bg-luxe-gold text-white px-6 sm:px-8 py-3 sm:py-4 rounded-lg font-semibold text-base sm:text-lg shadow-lg hover:shadow-xl transition-all duration-300 flex items-center justify-center space-x-2"
+                onClick={() => {
+                  addToCart(currentProduct);
+                  updateCart();
+                  setAddedToCart(true);
+                  setTimeout(() => setAddedToCart(false), 2000);
+                }}
+                className={`flex-1 px-6 sm:px-8 py-3 sm:py-4 rounded-lg font-semibold text-base sm:text-lg shadow-lg hover:shadow-xl transition-all duration-300 flex items-center justify-center space-x-2 ${
+                  addedToCart 
+                    ? 'bg-green-500 text-white' 
+                    : 'bg-luxe-gold text-white'
+                }`}
               >
                 <ShoppingCart size={18} className="sm:w-5 sm:h-5" />
-                <span>Ajouter au panier</span>
+                <span>{addedToCart ? '✓ Ajouté au panier' : 'Ajouter au panier'}</span>
               </motion.button>
               <motion.button
                 whileHover={{ scale: 1.05 }}
@@ -515,8 +562,8 @@ const ProductDetail = () => {
         >
           <h2 className="text-2xl sm:text-3xl font-display font-bold text-gray-800 mb-6 sm:mb-8">Produits similaires</h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 sm:gap-6">
-            {Object.values(productsDatabase)
-              .filter(p => p.category === product.category && p.id !== product.id)
+            {Object.values(currentProductsDatabase)
+              .filter(p => p.category === currentProduct.category && p.id !== currentProduct.id)
               .slice(0, 3)
               .map((relatedProduct) => (
                 <Link key={relatedProduct.id} to={`/produits/${relatedProduct.id}`}>
@@ -531,7 +578,7 @@ const ProductDetail = () => {
                     />
                     <div className="p-3 sm:p-4">
                       <h3 className="text-sm sm:text-base font-semibold text-gray-800 mb-2">{relatedProduct.name}</h3>
-                      <p className="text-sm sm:text-base text-luxe-gold font-bold">{relatedProduct.price}</p>
+                      <p className="text-sm sm:text-base text-luxe-gold font-bold">{formatPriceMAD(relatedProduct.price)}</p>
                     </div>
                   </motion.div>
                 </Link>

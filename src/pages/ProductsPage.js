@@ -3,38 +3,27 @@ import { motion } from 'framer-motion';
 import { useInView } from 'framer-motion';
 import { useRef } from 'react';
 import { useSearchParams, Link } from 'react-router-dom';
-import { Droplet, Sparkles, ShowerHead, Wrench, Tag } from 'lucide-react';
+import { Droplet, Sparkles, ShowerHead, Wrench, Tag, ShoppingCart } from 'lucide-react';
+import { formatPriceMAD, getProducts } from '../utils/productService';
+import { addToCart } from '../utils/cartService';
+import { useCart } from '../context/CartContext';
 
 const ProductsPage = () => {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: '-100px' });
   const [searchParams] = useSearchParams();
   const [selectedCategory, setSelectedCategory] = useState('all');
+  const [addedItems, setAddedItems] = useState({});
+  const { updateCart } = useCart();
 
-  // Initialize category from URL parameter
-  useEffect(() => {
-    const categoryParam = searchParams.get('category');
-    if (categoryParam === 'promo') {
-      setSelectedCategory('promo');
-    }
-  }, [searchParams]);
-
-  const categories = [
-    { id: 'all', name: 'Tous les produits', icon: Sparkles },
-    { id: 'douches', name: 'Douches', icon: ShowerHead },
-    { id: 'robinets', name: 'Robinets', icon: Droplet },
-    { id: 'equipements', name: 'Équipements', icon: Wrench },
-    { id: 'promo', name: 'Promotions', icon: Tag },
-  ];
-
-  const products = [
+  const defaultProducts = [
     {
       id: 1,
       name: 'Douche Moderne Premium',
       category: 'douches',
       description: 'Design épuré et fonctionnel pour une expérience de douche premium. Finition chromée brillante.',
       image: '/images/exemple.webp',
-      price: 'À partir de 1 299€',
+      price: '14290',
       isPromo: false,
     },
     {
@@ -43,7 +32,7 @@ const ProductsPage = () => {
       category: 'douches',
       description: 'Plaque de douche extra-large pour une sensation de pluie naturelle. Design minimaliste.',
       image: '/images/exemple.webp',
-      price: 'À partir de 899€',
+      price: '9890',
       isPromo: false,
     },
     {
@@ -52,7 +41,7 @@ const ProductsPage = () => {
       category: 'robinets',
       description: 'Robinetterie haut de gamme alliant esthétique et performance. Finition chromée miroir.',
       image: '/images/exemple.webp',
-      price: 'À partir de 349€',
+      price: '3840',
       isPromo: false,
     },
     {
@@ -61,7 +50,7 @@ const ProductsPage = () => {
       category: 'robinets',
       description: 'Robinet mitigeur avec bec haute portée. Design contemporain et fonctionnel.',
       image: '/images/exemple.webp',
-      price: 'À partir de 279€',
+      price: '3070',
       isPromo: false,
     },
     {
@@ -70,7 +59,7 @@ const ProductsPage = () => {
       category: 'equipements',
       description: 'Porte-serviettes chauffant design. Matériaux premium et finition élégante.',
       image: '/images/exemple.webp',
-      price: 'À partir de 199€',
+      price: '2190',
       isPromo: false,
     },
     {
@@ -79,7 +68,7 @@ const ProductsPage = () => {
       category: 'equipements',
       description: 'Miroir avec éclairage LED intégré. Design épuré et fonctionnalité premium.',
       image: '/images/exemple.webp',
-      price: 'À partir de 449€',
+      price: '4940',
       isPromo: false,
     },
     // Produits en promo
@@ -89,8 +78,8 @@ const ProductsPage = () => {
       category: 'douches',
       description: 'Design épuré et fonctionnel pour une expérience de douche premium. Finition chromée brillante.',
       image: '/images/exemple.webp',
-      price: '909€',
-      originalPrice: '1 299€',
+      price: '10000',
+      originalPrice: '14290',
       discount: '-30%',
       isPromo: true,
     },
@@ -100,8 +89,8 @@ const ProductsPage = () => {
       category: 'robinets',
       description: 'Robinetterie haut de gamme alliant esthétique et performance. Finition chromée miroir.',
       image: '/images/exemple.webp',
-      price: '262€',
-      originalPrice: '349€',
+      price: '2880',
+      originalPrice: '3840',
       discount: '-25%',
       isPromo: true,
     },
@@ -111,8 +100,8 @@ const ProductsPage = () => {
       category: 'equipements',
       description: 'Pack complet pour équiper votre salle de bain avec style. Design moderne et fonctionnel.',
       image: '/images/exemple.webp',
-      price: '719€',
-      originalPrice: '899€',
+      price: '7910',
+      originalPrice: '9890',
       discount: '-20%',
       isPromo: true,
     },
@@ -122,17 +111,45 @@ const ProductsPage = () => {
       category: 'douches',
       description: 'Plaque de douche extra-large pour une sensation de pluie naturelle. Design minimaliste.',
       image: '/images/exemple.webp',
-      price: '764€',
-      originalPrice: '899€',
+      price: '8400',
+      originalPrice: '9890',
       discount: '-15%',
       isPromo: true,
     },
   ];
 
+  const [products, setProducts] = useState(defaultProducts);
+
+  // Initialize category from URL parameter
+  useEffect(() => {
+    const categoryParam = searchParams.get('category');
+    if (categoryParam === 'promo') {
+      setSelectedCategory('promo');
+    }
+  }, [searchParams]);
+
+  useEffect(() => {
+    const savedProducts = getProducts();
+    if (savedProducts && Array.isArray(savedProducts) && savedProducts.length > 0) {
+      setProducts(savedProducts);
+    } else {
+      setProducts(defaultProducts);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  const categories = [
+    { id: 'all', name: 'Tous les produits', icon: Sparkles },
+    { id: 'douches', name: 'Douches', icon: ShowerHead },
+    { id: 'robinets', name: 'Robinets', icon: Droplet },
+    { id: 'equipements', name: 'Équipements', icon: Wrench },
+    { id: 'promo', name: 'Promotions', icon: Tag },
+  ];
+
   const filteredProducts = selectedCategory === 'all' 
     ? products 
     : selectedCategory === 'promo'
-    ? products.filter(product => product.isPromo === true)
+    ? products.filter(product => product.isPromo === true || product.category === 'promo')
     : products.filter(product => product.category === selectedCategory);
 
   const containerVariants = {
@@ -223,6 +240,9 @@ const ProductsPage = () => {
                   src={product.image}
                   alt={product.name}
                   className="w-full h-full object-cover"
+                  onError={(e) => {
+                    e.currentTarget.src = '/images/exemple.webp';
+                  }}
                   whileHover={{ scale: 1.1 }}
                   transition={{ duration: 0.4 }}
                 />
@@ -230,7 +250,13 @@ const ProductsPage = () => {
                 
                 {/* Category Badge */}
                 <div className="absolute top-4 left-4 bg-luxe-gold text-white px-3 py-1 rounded-full text-sm font-semibold">
-                  {product.category === 'douches' ? 'Douche' : product.category === 'robinets' ? 'Robinet' : 'Équipement'}
+                  {product.category === 'promo'
+                    ? 'Promo'
+                    : product.category === 'douches'
+                    ? 'Douche'
+                    : product.category === 'robinets'
+                    ? 'Robinet'
+                    : 'Équipement'}
                 </div>
                 
                 {/* Promo Badge */}
@@ -245,29 +271,54 @@ const ProductsPage = () => {
                   {product.name}
                 </h3>
                 <p className="text-sm sm:text-base text-gray-600 mb-3 sm:mb-4">{product.description}</p>
-                <div className="flex items-center justify-between mb-4">
-                  {product.isPromo ? (
-                    <div className="flex flex-col">
-                      <span className="text-2xl font-bold text-luxe-gold">
-                        {product.price}
-                      </span>
-                      <span className="text-sm text-gray-400 line-through">
-                        {product.originalPrice}
-                      </span>
-                    </div>
-                  ) : (
-                    <span className="text-luxe-gold font-bold text-lg">{product.price}</span>
-                  )}
-                  <Link to={`/produits/${product.id}`}>
+                <div className="flex flex-col space-y-3 mb-4">
+                  <div className="flex items-center justify-between">
+                    {product.isPromo ? (
+                      <div className="flex flex-col">
+                        <span className="text-2xl font-bold text-luxe-gold">
+                          {formatPriceMAD(product.price)}
+                        </span>
+                        <span className="text-sm text-gray-400 line-through">
+                          {formatPriceMAD(product.originalPrice)}
+                        </span>
+                      </div>
+                    ) : (
+                      <span className="text-luxe-gold font-bold text-lg">{formatPriceMAD(product.price)}</span>
+                    )}
+                  </div>
+                  <div className="flex items-center gap-2">
                     <motion.button
                       whileHover={{ scale: 1.05 }}
                       whileTap={{ scale: 0.95 }}
-                      className="text-luxe-gold font-semibold hover:underline flex items-center space-x-2"
+                      onClick={(e) => {
+                        e.preventDefault();
+                        addToCart(product);
+                        updateCart();
+                        setAddedItems({ ...addedItems, [product.id]: true });
+                        setTimeout(() => {
+                          setAddedItems({ ...addedItems, [product.id]: false });
+                        }, 2000);
+                      }}
+                      className={`flex-1 px-4 py-2 rounded-lg font-semibold text-sm transition-all duration-300 flex items-center justify-center space-x-2 ${
+                        addedItems[product.id]
+                          ? 'bg-green-500 text-white'
+                          : 'bg-luxe-gold text-white hover:bg-luxe-gold-dark'
+                      }`}
                     >
-                      <span>Détails</span>
-                      <span>→</span>
+                      <ShoppingCart size={16} />
+                      <span>{addedItems[product.id] ? '✓ Ajouté' : 'Ajouter'}</span>
                     </motion.button>
-                  </Link>
+                    <Link to={`/produits/${product.id}`} className="flex-1">
+                      <motion.button
+                        whileHover={{ scale: 1.05 }}
+                        whileTap={{ scale: 0.95 }}
+                        className="w-full px-4 py-2 border-2 border-luxe-gold text-luxe-gold rounded-lg font-semibold hover:bg-luxe-gold hover:text-white transition-all duration-300 flex items-center justify-center space-x-2 text-sm"
+                      >
+                        <span>Détails</span>
+                        <span>→</span>
+                      </motion.button>
+                    </Link>
+                  </div>
                 </div>
               </div>
               <div className="absolute inset-0 border-2 border-luxe-gold rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"></div>
