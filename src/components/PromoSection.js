@@ -25,7 +25,7 @@ const PromoSection = () => {
       promoPrice: '10000',
       discount: '-30%',
       description: 'Design épuré et fonctionnel pour une expérience de douche premium',
-      image: '/images/exemple.webp',
+      image: '/images/HOVER.jpeg',
     },
     {
       id: 2,
@@ -34,7 +34,7 @@ const PromoSection = () => {
       promoPrice: '2880',
       discount: '-25%',
       description: 'Robinetterie haut de gamme alliant esthétique et performance',
-      image: '/images/exemple.webp',
+      image: '/images/HOVER.jpeg',
     },
     {
       id: 3,
@@ -43,7 +43,7 @@ const PromoSection = () => {
       promoPrice: '7910',
       discount: '-20%',
       description: 'Pack complet pour équiper votre salle de bain avec style',
-      image: '/images/exemple.webp',
+      image: '/images/HOVER.jpeg',
     },
   ];
 

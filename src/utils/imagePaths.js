@@ -5,43 +5,43 @@
 
 // Images Hero
 export const heroImages = {
-  main: '/images/exemple.webp',
+  main: '/images/HOVER.jpeg',
   // Ajoutez d'autres images hero si nécessaire
 };
 
 // Images Produits
 export const productImages = {
   douches: {
-    modern: '/images/exemple.webp',
-    rainshower: '/images/exemple.webp',
+    modern: '/images/HOVER.jpeg',
+    rainshower: '/images/HOVER.jpeg',
   },
   robinets: {
-    chrome: '/images/exemple.webp',
-    evier: '/images/exemple.webp',
+    chrome: '/images/HOVER.jpeg',
+    evier: '/images/HOVER.jpeg',
   },
   equipements: {
-    porteServiettes: '/images/exemple.webp',
-    miroir: '/images/exemple.webp',
+    porteServiettes: '/images/HOVER.jpeg',
+    miroir: '/images/HOVER.jpeg',
   },
 };
 
 // Images Galerie
 export const galleryImages = {
   sallesDeBain: [
-    '/images/exemple.webp',
-    '/images/exemple.webp',
+    '/images/HOVER.jpeg',
+    '/images/HOVER.jpeg',
   ],
   douches: [
-    '/images/exemple.webp',
-    '/images/exemple.webp',
+    '/images/HOVER.jpeg',
+    '/images/HOVER.jpeg',
   ],
   robinets: [
-    '/images/exemple.webp',
-    '/images/exemple.webp',
+    '/images/HOVER.jpeg',
+    '/images/HOVER.jpeg',
   ],
   details: [
-    '/images/exemple.webp',
-    '/images/exemple.webp',
+    '/images/HOVER.jpeg',
+    '/images/HOVER.jpeg',
   ],
 };
 

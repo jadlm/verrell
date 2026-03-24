@@ -129,7 +129,7 @@ const ContactPage = () => {
               className="relative h-64 rounded-lg overflow-hidden mt-8"
             >
               <img
-                src="/images/exemple.webp"
+                src="/images/HOVER.jpeg"
                 alt="Salle de bain"
                 className="w-full h-full object-cover"
               />

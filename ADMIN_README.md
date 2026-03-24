@@ -78,7 +78,7 @@ public/
         douche-2.webp
       robinets/
         robinet-1.webp
-    exemple.webp
+    HOVER.jpeg
 ```
 
 ---

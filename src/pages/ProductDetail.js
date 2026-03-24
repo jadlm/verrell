@@ -23,8 +23,8 @@ const ProductDetail = () => {
       category: 'douches',
       description: 'Design épuré et fonctionnel pour une expérience de douche premium. Finition chromée brillante.',
       fullDescription: 'Cette douche moderne premium allie esthétique et performance. Conçue avec les meilleurs matériaux, elle offre une expérience de douche exceptionnelle. La finition chromée brillante apporte une touche d\'élégance à votre salle de bain.',
-      image: '/images/exemple.webp',
-      images: ['/images/exemple.webp', '/images/exemple.webp', '/images/exemple.webp'],
+      image: '/images/HOVER.jpeg',
+      images: ['/images/HOVER.jpeg', '/images/HOVER.jpeg', '/images/HOVER.jpeg'],
       price: '14290',
       originalPrice: null,
       discount: null,
@@ -53,8 +53,8 @@ const ProductDetail = () => {
       category: 'douches',
       description: 'Plaque de douche extra-large pour une sensation de pluie naturelle. Design minimaliste.',
       fullDescription: 'Profitez d\'une expérience de douche unique avec cette plaque rainshower extra-large. Le design minimaliste s\'intègre parfaitement dans tous les styles de salle de bain. La technologie de pluie naturelle offre un confort incomparable.',
-      image: '/images/exemple.webp',
-      images: ['/images/exemple.webp', '/images/exemple.webp', '/images/exemple.webp'],
+      image: '/images/HOVER.jpeg',
+      images: ['/images/HOVER.jpeg', '/images/HOVER.jpeg', '/images/HOVER.jpeg'],
       price: '9890',
       originalPrice: null,
       discount: null,
@@ -83,8 +83,8 @@ const ProductDetail = () => {
       category: 'robinets',
       description: 'Robinetterie haut de gamme alliant esthétique et performance. Finition chromée miroir.',
       fullDescription: 'Ce robinet design allie esthétique moderne et performance exceptionnelle. La finition chromée miroir apporte une touche de luxe à votre salle de bain. Conçu pour durer, il résiste à l\'usure et aux taches.',
-      image: '/images/exemple.webp',
-      images: ['/images/exemple.webp', '/images/exemple.webp', '/images/exemple.webp'],
+      image: '/images/HOVER.jpeg',
+      images: ['/images/HOVER.jpeg', '/images/HOVER.jpeg', '/images/HOVER.jpeg'],
       price: '3840',
       originalPrice: null,
       discount: null,
@@ -113,8 +113,8 @@ const ProductDetail = () => {
       category: 'robinets',
       description: 'Robinet mitigeur avec bec haute portée. Design contemporain et fonctionnel.',
       fullDescription: 'Robinet mitigeur moderne avec bec haute portée pour plus de confort. Le design contemporain s\'adapte à tous les styles. Facile à utiliser et à entretenir.',
-      image: '/images/exemple.webp',
-      images: ['/images/exemple.webp', '/images/exemple.webp', '/images/exemple.webp'],
+      image: '/images/HOVER.jpeg',
+      images: ['/images/HOVER.jpeg', '/images/HOVER.jpeg', '/images/HOVER.jpeg'],
       price: '3070',
       originalPrice: null,
       discount: null,
@@ -143,8 +143,8 @@ const ProductDetail = () => {
       category: 'equipements',
       description: 'Porte-serviettes chauffant design. Matériaux premium et finition élégante.',
       fullDescription: 'Porte-serviettes chauffant premium pour un confort optimal. Les matériaux de qualité supérieure garantissent une longue durée de vie. La finition élégante s\'intègre parfaitement dans votre salle de bain.',
-      image: '/images/exemple.webp',
-      images: ['/images/exemple.webp', '/images/exemple.webp', '/images/exemple.webp'],
+      image: '/images/HOVER.jpeg',
+      images: ['/images/HOVER.jpeg', '/images/HOVER.jpeg', '/images/HOVER.jpeg'],
       price: '2190',
       originalPrice: null,
       discount: null,
@@ -173,8 +173,8 @@ const ProductDetail = () => {
       category: 'equipements',
       description: 'Miroir avec éclairage LED intégré. Design épuré et fonctionnalité premium.',
       fullDescription: 'Miroir LED intégré pour un éclairage optimal de votre salle de bain. Le design épuré et moderne s\'adapte à tous les styles. Les LED offrent un éclairage doux et uniforme.',
-      image: '/images/exemple.webp',
-      images: ['/images/exemple.webp', '/images/exemple.webp', '/images/exemple.webp'],
+      image: '/images/HOVER.jpeg',
+      images: ['/images/HOVER.jpeg', '/images/HOVER.jpeg', '/images/HOVER.jpeg'],
       price: '4940',
       originalPrice: null,
       discount: null,
@@ -203,8 +203,8 @@ const ProductDetail = () => {
       category: 'douches',
       description: 'Design épuré et fonctionnel pour une expérience de douche premium. Finition chromée brillante.',
       fullDescription: 'Cette douche moderne premium allie esthétique et performance. Conçue avec les meilleurs matériaux, elle offre une expérience de douche exceptionnelle. En promotion limitée !',
-      image: '/images/exemple.webp',
-      images: ['/images/exemple.webp', '/images/exemple.webp', '/images/exemple.webp'],
+      image: '/images/HOVER.jpeg',
+      images: ['/images/HOVER.jpeg', '/images/HOVER.jpeg', '/images/HOVER.jpeg'],
       price: '10000',
       originalPrice: '14290',
       discount: '-30%',
@@ -233,8 +233,8 @@ const ProductDetail = () => {
       category: 'robinets',
       description: 'Robinetterie haut de gamme alliant esthétique et performance. Finition chromée miroir.',
       fullDescription: 'Ce robinet design allie esthétique moderne et performance exceptionnelle. La finition chromée miroir apporte une touche de luxe à votre salle de bain. Promotion spéciale !',
-      image: '/images/exemple.webp',
-      images: ['/images/exemple.webp', '/images/exemple.webp', '/images/exemple.webp'],
+      image: '/images/HOVER.jpeg',
+      images: ['/images/HOVER.jpeg', '/images/HOVER.jpeg', '/images/HOVER.jpeg'],
       price: '2880',
       originalPrice: '3840',
       discount: '-25%',
@@ -263,8 +263,8 @@ const ProductDetail = () => {
       category: 'equipements',
       description: 'Pack complet pour équiper votre salle de bain avec style. Design moderne et fonctionnel.',
       fullDescription: 'Pack complet incluant tous les équipements essentiels pour votre salle de bain. Design moderne et cohérent pour un rendu professionnel. Économisez avec ce pack promotionnel !',
-      image: '/images/exemple.webp',
-      images: ['/images/exemple.webp', '/images/exemple.webp', '/images/exemple.webp'],
+      image: '/images/HOVER.jpeg',
+      images: ['/images/HOVER.jpeg', '/images/HOVER.jpeg', '/images/HOVER.jpeg'],
       price: '7910',
       originalPrice: '9890',
       discount: '-20%',
@@ -293,8 +293,8 @@ const ProductDetail = () => {
       category: 'douches',
       description: 'Plaque de douche extra-large pour une sensation de pluie naturelle. Design minimaliste.',
       fullDescription: 'Profitez d\'une expérience de douche unique avec cette plaque rainshower extra-large. Le design minimaliste s\'intègre parfaitement dans tous les styles de salle de bain. En promotion !',
-      image: '/images/exemple.webp',
-      images: ['/images/exemple.webp', '/images/exemple.webp', '/images/exemple.webp'],
+      image: '/images/HOVER.jpeg',
+      images: ['/images/HOVER.jpeg', '/images/HOVER.jpeg', '/images/HOVER.jpeg'],
       price: '8400',
       originalPrice: '9890',
       discount: '-15%',
@@ -343,7 +343,7 @@ const ProductDetail = () => {
   const currentProduct = product || currentProductsDatabase[parseInt(id)];
   const productImages = Array.isArray(currentProduct?.images) && currentProduct.images.length > 0
     ? currentProduct.images
-    : [currentProduct?.image || '/images/exemple.webp', '/images/exemple.webp', '/images/exemple.webp'];
+    : [currentProduct?.image || '/images/HOVER.jpeg', '/images/HOVER.jpeg', '/images/HOVER.jpeg'];
 
   if (!currentProduct) {
     return (
@@ -403,7 +403,7 @@ const ProductDetail = () => {
                 alt={currentProduct.name}
                 className="w-full h-64 sm:h-80 md:h-96 object-cover rounded-lg shadow-lg"
                 onError={(e) => {
-                  e.currentTarget.src = '/images/exemple.webp';
+                  e.currentTarget.src = '/images/HOVER.jpeg';
                 }}
               />
             </div>
@@ -423,7 +423,7 @@ const ProductDetail = () => {
                     alt={`${currentProduct.name} ${index + 1}`}
                     className="w-full h-full object-cover"
                     onError={(e) => {
-                      e.currentTarget.src = '/images/exemple.webp';
+                      e.currentTarget.src = '/images/HOVER.jpeg';
                     }}
                   />
                 </motion.button>

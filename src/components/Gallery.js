@@ -12,32 +12,32 @@ const Gallery = () => {
   const galleryImages = [
     {
       id: 1,
-      src: '/images/exemple.webp',
+      src: '/images/HOVER.jpeg',
       title: 'Salle de bain moderne',
     },
     {
       id: 2,
-      src: '/images/exemple.webp',
+      src: '/images/HOVER.jpeg',
       title: 'Douche premium',
     },
     {
       id: 3,
-      src: '/images/exemple.webp',
+      src: '/images/HOVER.jpeg',
       title: 'Robinetterie élégante',
     },
     {
       id: 4,
-      src: '/images/exemple.webp',
+      src: '/images/HOVER.jpeg',
       title: 'Design épuré',
     },
     {
       id: 5,
-      src: '/images/exemple.webp',
+      src: '/images/HOVER.jpeg',
       title: 'Espace luxueux',
     },
     {
       id: 6,
-      src: '/images/exemple.webp',
+      src: '/images/HOVER.jpeg',
       title: 'Ambiance premium',
     },
   ];

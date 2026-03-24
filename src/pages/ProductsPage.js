@@ -22,7 +22,7 @@ const ProductsPage = () => {
       name: 'Douche Moderne Premium',
       category: 'douches',
       description: 'Design épuré et fonctionnel pour une expérience de douche premium. Finition chromée brillante.',
-      image: '/images/exemple.webp',
+      image: '/images/HOVER.jpeg',
       price: '14290',
       isPromo: false,
     },
@@ -31,7 +31,7 @@ const ProductsPage = () => {
       name: 'Douche Rainshower',
       category: 'douches',
       description: 'Plaque de douche extra-large pour une sensation de pluie naturelle. Design minimaliste.',
-      image: '/images/exemple.webp',
+      image: '/images/HOVER.jpeg',
       price: '9890',
       isPromo: false,
     },
@@ -40,7 +40,7 @@ const ProductsPage = () => {
       name: 'Robinet Design Chrome',
       category: 'robinets',
       description: 'Robinetterie haut de gamme alliant esthétique et performance. Finition chromée miroir.',
-      image: '/images/exemple.webp',
+      image: '/images/HOVER.jpeg',
       price: '3840',
       isPromo: false,
     },
@@ -49,7 +49,7 @@ const ProductsPage = () => {
       name: 'Robinet Évier Moderne',
       category: 'robinets',
       description: 'Robinet mitigeur avec bec haute portée. Design contemporain et fonctionnel.',
-      image: '/images/exemple.webp',
+      image: '/images/HOVER.jpeg',
       price: '3070',
       isPromo: false,
     },
@@ -58,7 +58,7 @@ const ProductsPage = () => {
       name: 'Porte-serviettes Premium',
       category: 'equipements',
       description: 'Porte-serviettes chauffant design. Matériaux premium et finition élégante.',
-      image: '/images/exemple.webp',
+      image: '/images/HOVER.jpeg',
       price: '2190',
       isPromo: false,
     },
@@ -67,7 +67,7 @@ const ProductsPage = () => {
       name: 'Miroir LED Intégré',
       category: 'equipements',
       description: 'Miroir avec éclairage LED intégré. Design épuré et fonctionnalité premium.',
-      image: '/images/exemple.webp',
+      image: '/images/HOVER.jpeg',
       price: '4940',
       isPromo: false,
     },
@@ -77,7 +77,7 @@ const ProductsPage = () => {
       name: 'Douche Premium -30%',
       category: 'douches',
       description: 'Design épuré et fonctionnel pour une expérience de douche premium. Finition chromée brillante.',
-      image: '/images/exemple.webp',
+      image: '/images/HOVER.jpeg',
       price: '10000',
       originalPrice: '14290',
       discount: '-30%',
@@ -88,7 +88,7 @@ const ProductsPage = () => {
       name: 'Robinet Design -25%',
       category: 'robinets',
       description: 'Robinetterie haut de gamme alliant esthétique et performance. Finition chromée miroir.',
-      image: '/images/exemple.webp',
+      image: '/images/HOVER.jpeg',
       price: '2880',
       originalPrice: '3840',
       discount: '-25%',
@@ -99,7 +99,7 @@ const ProductsPage = () => {
       name: 'Pack Salle de bain -20%',
       category: 'equipements',
       description: 'Pack complet pour équiper votre salle de bain avec style. Design moderne et fonctionnel.',
-      image: '/images/exemple.webp',
+      image: '/images/HOVER.jpeg',
       price: '7910',
       originalPrice: '9890',
       discount: '-20%',
@@ -110,7 +110,7 @@ const ProductsPage = () => {
       name: 'Douche Rainshower -15%',
       category: 'douches',
       description: 'Plaque de douche extra-large pour une sensation de pluie naturelle. Design minimaliste.',
-      image: '/images/exemple.webp',
+      image: '/images/HOVER.jpeg',
       price: '8400',
       originalPrice: '9890',
       discount: '-15%',
@@ -241,7 +241,7 @@ const ProductsPage = () => {
                   alt={product.name}
                   className="w-full h-full object-cover"
                   onError={(e) => {
-                    e.currentTarget.src = '/images/exemple.webp';
+                    e.currentTarget.src = '/images/HOVER.jpeg';
                   }}
                   whileHover={{ scale: 1.1 }}
                   transition={{ duration: 0.4 }}
